@@ -20,6 +20,10 @@
       "type": "testimonials",
       "settings": {}
     },
+    "video": {
+      "type": "video",
+      "settings": {}
+    },
     "cta-banner": {
       "type": "cta-banner",
       "settings": {}
@@ -30,6 +34,7 @@
     "problem",
     "product-showcase",
     "how-it-works",
+    "video",
     "testimonials",
     "cta-banner"
   ]

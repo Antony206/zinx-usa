@@ -1,0 +1,110 @@
+<section class="video-section" id="video-section">
+  <div class="video-section__container container">
+    <div class="video-section__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="video-section__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="video-section__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="video-section__wrapper">
+      {%- if section.settings.video_url != blank -%}
+        {%- if section.settings.video_url.type == 'youtube' -%}
+          <iframe src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay={{ section.settings.autoplay | default: 0 }}&mute={{ section.settings.mute | default: 0 }}" class="video-section__iframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        {%- elsif section.settings.video_url.type == 'vimeo' -%}
+          <iframe src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay={{ section.settings.autoplay | default: 0 }}&muted={{ section.settings.mute | default: 0 }}" class="video-section__iframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        {%- endif -%}
+      {%- elsif section.settings.html5_video != blank -%}
+        <video 
+          class="video-section__html5"
+          {% if section.settings.autoplay %}autoplay{% endif %}
+          {% if section.settings.mute %}muted{% endif %}
+          {% if section.settings.loop %}loop{% endif %}
+          controls
+          playsinline
+          {% if section.settings.cover_image != blank %}poster="{{ section.settings.cover_image | image_url: width: 1200 }}"{% endif %}
+        >
+          <source src="{{ section.settings.html5_video }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {%- else -%}
+        <div class="video-section__placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          <div class="video-section__placeholder-text">Add a video link or upload an MP4</div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video",
+  "class": "video-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SEE IT IN ACTION"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Watch How The Magnetic Rack Works"
+    },
+    {
+      "type": "header",
+      "content": "Video Source"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "YouTube or Vimeo link",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "html5_video",
+      "label": "MP4 Video URL",
+      "info": "Upload an MP4 to Shopify Files and paste the URL here. Overrides YouTube/Vimeo if both are provided."
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover Image (for MP4)",
+      "info": "Displays before the video plays."
+    },
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mute",
+      "label": "Mute video",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop video",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video"
+    }
+  ]
+}
+{% endschema %}
