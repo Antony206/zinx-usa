@@ -1,0 +1,63 @@
+<section class="cta-banner" id="cta-banner">
+  <div class="cta-banner__container container">
+    <h2 class="cta-banner__title">{{ section.settings.heading }}</h2>
+    <p class="cta-banner__text">{{ section.settings.subheading }}</p>
+    <a href="{{ section.settings.cta_link }}" class="btn btn--white btn--lg">
+      {{ section.settings.cta_text }}
+      {% render 'icon', name: 'arrow-right', size: 20 %}
+    </a>
+
+    <div class="cta-banner__trust">
+      <div class="cta-banner__trust-item">
+        {% render 'icon', name: 'truck', size: 20 %}
+        <span>Free Shipping</span>
+      </div>
+      <div class="cta-banner__trust-item">
+        {% render 'icon', name: 'refresh', size: 20 %}
+        <span>30-Day Returns</span>
+      </div>
+      <div class="cta-banner__trust-item">
+        {% render 'icon', name: 'lock', size: 20 %}
+        <span>Secure Checkout</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA Banner",
+  "class": "cta-banner-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ready to Simplify Your Kitchen?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Join thousands of happy homeowners. Order your ZINX Magnetic Rack today."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Order Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Banner"
+    }
+  ]
+}
+{% endschema %}

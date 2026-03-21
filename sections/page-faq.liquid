@@ -1,0 +1,123 @@
+<section class="faq-page" id="faq-page">
+  <div class="faq-page__container container">
+    <div class="faq-page__header">
+      <p class="faq-page__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1 class="faq-page__title">{{ section.settings.heading }}</h1>
+      <p class="faq-page__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="faq-page__list">
+      {%- for block in section.blocks -%}
+        <div class="faq-page__item accordion" {{ block.shopify_attributes }}>
+          <button class="faq-page__question accordion__trigger" aria-expanded="false" id="faq-trigger-{{ forloop.index }}">
+            <span>{{ block.settings.question }}</span>
+            <span class="accordion__icon">{% render 'icon', name: 'chevron-down', size: 20 %}</span>
+          </button>
+          <div class="faq-page__answer accordion__content" id="faq-content-{{ forloop.index }}">
+            <div class="faq-page__answer-inner">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="faq-page__cta">
+      <p>Still have questions?</p>
+      <a href="/pages/contact" class="btn btn--primary">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FAQ"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything you need to know about our products, shipping, and returns."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Page",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How does the Magnetic Rack attach to my fridge?",
+            "answer": "<p>Our rack uses powerful neodymium magnets that attach securely to any magnetic surface, including the sides of most refrigerators, dishwashers, and metal doors. No drilling, screws, or adhesive required — simply place it and it holds firm.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How much weight can the rack hold?",
+            "answer": "<p>The ZINX Magnetic Rack can hold up to 15 lbs of items securely. That's plenty for spice jars, utensils, kitchen wraps, and other essentials.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Will the magnets scratch my fridge?",
+            "answer": "<p>No! Our magnets have a protective soft coating on the contact surface to prevent any scratching or marking. Your fridge stays pristine.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What is your shipping policy?",
+            "answer": "<p>We offer free standard shipping on orders over $50 within the United States. Standard delivery takes 5-8 business days. Expedited shipping options are available at checkout.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day money-back guarantee. If you're not completely satisfied, return the product in its original condition within 30 days for a full refund. No questions asked.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you ship internationally?",
+            "answer": "<p>Currently, we ship within the United States only. International shipping will be available soon — stay tuned!</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

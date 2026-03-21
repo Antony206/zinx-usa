@@ -1,0 +1,147 @@
+<div class="product-page" id="product-page">
+  <div class="product-page__container container">
+    <div class="product-page__gallery">
+      <div class="product-page__main-image" id="product-main-image">
+        {%- if product.featured_image -%}
+          <img
+            src="{{ product.featured_image | image_url: width: 800 }}"
+            alt="{{ product.featured_image.alt | default: product.title }}"
+            class="product-page__img"
+            id="main-product-img"
+            width="800"
+          >
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="product-page__thumbnails">
+          {%- for image in product.images -%}
+            <button
+              class="product-page__thumb {% if forloop.first %}is-active{% endif %}"
+              data-image-url="{{ image | image_url: width: 800 }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              <img
+                src="{{ image | image_url: width: 120 }}"
+                alt="{{ image.alt | default: product.title }}"
+                width="120"
+                height="120"
+                loading="lazy"
+              >
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-page__info">
+      <p class="product-page__eyebrow">{{ product.vendor }}</p>
+      <h1 class="product-page__title">{{ product.title }}</h1>
+
+      <div class="product-page__price">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-page__compare-price">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+        <span class="product-page__current-price">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-page__save-badge">
+            SAVE {{ product.compare_at_price | minus: product.price | money }}
+          </span>
+        {%- endif -%}
+      </div>
+
+      <div class="product-page__description">
+        {{ product.description }}
+      </div>
+
+      <div class="product-page__benefits">
+        <div class="product-page__benefit">
+          {% render 'icon', name: 'checkmark', size: 18 %}
+          <span>Space-Saving Design</span>
+        </div>
+        <div class="product-page__benefit">
+          {% render 'icon', name: 'checkmark', size: 18 %}
+          <span>No Drilling Required</span>
+        </div>
+        <div class="product-page__benefit">
+          {% render 'icon', name: 'checkmark', size: 18 %}
+          <span>Premium Build Quality</span>
+        </div>
+        <div class="product-page__benefit">
+          {% render 'icon', name: 'checkmark', size: 18 %}
+          <span>30-Day Money Back Guarantee</span>
+        </div>
+      </div>
+
+      {%- form 'product', product -%}
+        {%- if product.variants.size > 1 -%}
+          <div class="product-page__variants">
+            {%- for option in product.options_with_values -%}
+              <div class="product-page__option">
+                <label class="product-page__option-label" for="option-{{ option.name | handleize }}">
+                  {{ option.name }}
+                </label>
+                <select
+                  class="product-page__option-select"
+                  id="option-{{ option.name | handleize }}"
+                  name="options[{{ option.name }}]"
+                >
+                  {%- for value in option.values -%}
+                    <option value="{{ value }}" {% if value == option.selected_value %}selected{% endif %}>
+                      {{ value }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        <div class="product-page__quantity">
+          <label class="product-page__quantity-label" for="product-quantity">Quantity</label>
+          <div class="product-page__quantity-selector">
+            <button type="button" class="product-page__qty-btn" id="qty-minus" aria-label="Decrease quantity">−</button>
+            <input type="number" id="product-quantity" name="quantity" value="1" min="1" class="product-page__qty-input">
+            <button type="button" class="product-page__qty-btn" id="qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn--primary btn--lg btn--full product-page__add-to-cart"
+          id="add-to-cart"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {%- if product.available -%}
+            Add to Cart — {{ product.price | money }}
+          {%- else -%}
+            Sold Out
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+
+      <div class="product-page__trust-badges">
+        <div class="product-page__trust-badge">
+          {% render 'icon', name: 'truck', size: 18 %}
+          <span>Free Shipping</span>
+        </div>
+        <div class="product-page__trust-badge">
+          {% render 'icon', name: 'shield', size: 18 %}
+          <span>Secure Checkout</span>
+        </div>
+        <div class="product-page__trust-badge">
+          {% render 'icon', name: 'refresh', size: 18 %}
+          <span>Easy Returns</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Page",
+  "settings": []
+}
+{% endschema %}

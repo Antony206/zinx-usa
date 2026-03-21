@@ -1,0 +1,104 @@
+<section class="testimonials" id="testimonials">
+  <div class="testimonials__container container">
+    <p class="testimonials__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="testimonials__title">{{ section.settings.heading }}</h2>
+
+    <div class="testimonials__grid">
+      {%- for block in section.blocks -%}
+        <div class="testimonials__card" {{ block.shopify_attributes }}>
+          <div class="testimonials__stars">
+            {%- for i in (1..5) -%}
+              {% render 'icon', name: 'star', size: 16 %}
+            {%- endfor -%}
+          </div>
+          <p class="testimonials__quote">"{{ block.settings.quote }}"</p>
+          <div class="testimonials__author">
+            <p class="testimonials__name">{{ block.settings.name }}</p>
+            {%- if block.settings.verified -%}
+              <span class="testimonials__verified">
+                {% render 'icon', name: 'checkmark', size: 14 %}
+                Verified Buyer
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "testimonials-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHAT CUSTOMERS SAY"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by Thousands"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer Name"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Buyer",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Sarah M.",
+            "quote": "Finally, a storage solution that actually works! My kitchen counter is so much cleaner now. Best purchase I've made all year.",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "James R.",
+            "quote": "The magnets are incredibly strong. I was worried it would slide down but it holds everything perfectly. Highly recommend!",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Linda K.",
+            "quote": "So simple but so effective. I bought two more for my bathroom and garage. Everyone who visits asks where I got it.",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

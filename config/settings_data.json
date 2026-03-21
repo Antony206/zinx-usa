@@ -1,0 +1,15 @@
+{
+  "current": {
+    "color_primary": "#0A0A0A",
+    "color_accent": "#2563EB",
+    "color_background": "#FFFFFF",
+    "color_background_alt": "#F8F9FA",
+    "color_text": "#1A1A1A",
+    "color_text_muted": "#6B7280",
+    "color_success": "#10B981",
+    "announcement_enabled": true,
+    "announcement_text": "🚚 Free Shipping on Orders Over $50 — Shop Now!",
+    "sections": {},
+    "content_for_index": []
+  }
+}

@@ -1,0 +1,136 @@
+<section class="product-showcase" id="product-showcase">
+  <div class="product-showcase__container container">
+    <div class="product-showcase__image">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 700 }}"
+          alt="{{ section.settings.image.alt | default: 'ZINX Magnetic Rack' }}"
+          class="product-showcase__img"
+          width="700"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+    <div class="product-showcase__content">
+      <p class="product-showcase__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="product-showcase__title">{{ section.settings.heading }}</h2>
+      <p class="product-showcase__text">{{ section.settings.description }}</p>
+
+      <div class="product-showcase__benefits">
+        {%- for block in section.blocks -%}
+          <div class="product-showcase__benefit" {{ block.shopify_attributes }}>
+            <div class="product-showcase__benefit-icon">
+              {% render 'icon', name: 'checkmark', size: 20 %}
+            </div>
+            <div>
+              <h4 class="product-showcase__benefit-title">{{ block.settings.title }}</h4>
+              <p class="product-showcase__benefit-text">{{ block.settings.text }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <a href="{{ section.settings.cta_link }}" class="btn btn--primary">
+        {{ section.settings.cta_text }}
+        {% render 'icon', name: 'arrow-right', size: 18 %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Showcase",
+  "class": "product-showcase-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE SOLUTION"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ZINX Magnetic Rack"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Turn the unused side of your fridge into an organized storage station. Powerful magnets, premium design, zero installation."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Buy Now — $39.99"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Showcase",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Space-Saving Design",
+            "text": "Utilizes the unused side of your refrigerator"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "No Drilling Required",
+            "text": "Strong magnets attach instantly — no tools needed"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Premium Build Quality",
+            "text": "Durable materials that hold up to daily use"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Clean, Minimal Look",
+            "text": "Blends seamlessly with any kitchen style"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,108 @@
+<section class="problem" id="problem-section">
+  <div class="problem__container container">
+    <div class="problem__content">
+      <p class="problem__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="problem__title">{{ section.settings.heading }}</h2>
+      <p class="problem__text">{{ section.settings.description }}</p>
+    </div>
+    <div class="problem__grid">
+      {%- for block in section.blocks -%}
+        <div class="problem__card" {{ block.shopify_attributes }}>
+          <div class="problem__card-icon">
+            {% render 'icon', name: block.settings.icon, size: 28 %}
+          </div>
+          <h3 class="problem__card-title">{{ block.settings.title }}</h3>
+          <p class="problem__card-text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Problem Statement",
+  "class": "problem-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE PROBLEM"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Kitchen Deserves Better"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Cluttered countertops, overflowing cabinets, and spice bottles everywhere. Sound familiar?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pain_point",
+      "name": "Pain Point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "grid", "label": "Grid" },
+            { "value": "zap", "label": "Zap" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "grid"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Problem Statement",
+      "blocks": [
+        {
+          "type": "pain_point",
+          "settings": {
+            "icon": "grid",
+            "title": "No Counter Space",
+            "text": "Spice jars, condiments, and utensils eat up every inch of your counter."
+          }
+        },
+        {
+          "type": "pain_point",
+          "settings": {
+            "icon": "zap",
+            "title": "Cabinets Overflowing",
+            "text": "You open a cabinet and everything tumbles out. There's just no room."
+          }
+        },
+        {
+          "type": "pain_point",
+          "settings": {
+            "icon": "heart",
+            "title": "Drilling? No Thanks",
+            "text": "Wall-mounted racks mean holes, anchors, and damage to your walls."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

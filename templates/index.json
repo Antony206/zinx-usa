@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "problem": {
+      "type": "problem",
+      "settings": {}
+    },
+    "product-showcase": {
+      "type": "product-showcase",
+      "settings": {}
+    },
+    "how-it-works": {
+      "type": "how-it-works",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "cta-banner": {
+      "type": "cta-banner",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "problem",
+    "product-showcase",
+    "how-it-works",
+    "testimonials",
+    "cta-banner"
+  ]
+}

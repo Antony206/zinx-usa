@@ -1,0 +1,18 @@
+{%- if settings.announcement_enabled -%}
+<div class="announcement-bar" id="announcement-bar">
+  {%- if settings.announcement_link != blank -%}
+    <a href="{{ settings.announcement_link }}" class="announcement-bar__link">
+      {{ settings.announcement_text }}
+    </a>
+  {%- else -%}
+    <p class="announcement-bar__text">{{ settings.announcement_text }}</p>
+  {%- endif -%}
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "class": "announcement-bar-section"
+}
+{% endschema %}

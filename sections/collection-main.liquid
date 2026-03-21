@@ -1,0 +1,33 @@
+<section class="collection-page" id="collection-page">
+  <div class="collection-page__container container">
+    <div class="collection-page__header">
+      <h1 class="collection-page__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="collection-page__description">{{ collection.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-page__grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- else -%}
+        <p class="collection-page__empty">No products found in this collection.</p>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+.collection-page { padding: 60px 0 100px; }
+.collection-page__header { text-align: center; margin-bottom: 48px; }
+.collection-page__description { color: var(--color-text-muted); max-width: 500px; margin: 12px auto 0; }
+.collection-page__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; }
+.collection-page__empty { text-align: center; color: var(--color-text-muted); grid-column: 1 / -1; padding: 60px 0; }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": []
+}
+{% endschema %}

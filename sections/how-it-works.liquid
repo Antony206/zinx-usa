@@ -1,0 +1,104 @@
+<section class="how-it-works" id="how-it-works">
+  <div class="how-it-works__container container">
+    <p class="how-it-works__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="how-it-works__title">{{ section.settings.heading }}</h2>
+
+    <div class="how-it-works__steps">
+      {%- for block in section.blocks -%}
+        <div class="how-it-works__step" {{ block.shopify_attributes }}>
+          <div class="how-it-works__step-number">{{ forloop.index }}</div>
+          {%- if block.settings.image != blank -%}
+            <div class="how-it-works__step-image">
+              <img
+                src="{{ block.settings.image | image_url: width: 300 }}"
+                alt="{{ block.settings.title }}"
+                width="300"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+          <h3 class="how-it-works__step-title">{{ block.settings.title }}</h3>
+          <p class="how-it-works__step-text">{{ block.settings.text }}</p>
+        </div>
+
+        {%- unless forloop.last -%}
+          <div class="how-it-works__connector">
+            {% render 'icon', name: 'arrow-right', size: 24 %}
+          </div>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works",
+  "class": "how-it-works-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SIMPLE AS 1-2-3"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How It Works"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Step Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Attach",
+            "text": "Place the rack on any magnetic surface — your fridge, dishwasher, or any metal surface."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Organize",
+            "text": "Load it up with spices, utensils, wraps, or whatever you need within arm's reach."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Enjoy",
+            "text": "A cleaner kitchen, more counter space, and everything organized — instantly."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

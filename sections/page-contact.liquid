@@ -1,0 +1,104 @@
+<section class="contact-page" id="contact-page">
+  <div class="contact-page__container container">
+    <div class="contact-page__header">
+      <p class="contact-page__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1 class="contact-page__title">{{ section.settings.heading }}</h1>
+      <p class="contact-page__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="contact-page__grid">
+      <div class="contact-page__form-wrap">
+        {%- form 'contact' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="contact-page__success">
+              <p>Thank you for reaching out! We'll get back to you within 24 hours.</p>
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="contact-page__errors">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="contact-page__form-row">
+            <div class="form-group">
+              <label for="contact-name" class="form-label">Name</label>
+              <input type="text" id="contact-name" name="contact[name]" class="form-input" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email" class="form-label">Email</label>
+              <input type="email" id="contact-email" name="contact[email]" class="form-input" placeholder="you@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject" class="form-label">Subject</label>
+            <select id="contact-subject" name="contact[subject]" class="form-input form-select">
+              <option value="">Select a topic</option>
+              <option value="Order Inquiry">Order Inquiry</option>
+              <option value="Shipping Question">Shipping Question</option>
+              <option value="Return/Refund">Return / Refund</option>
+              <option value="Product Question">Product Question</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message" class="form-label">Message</label>
+            <textarea id="contact-message" name="contact[body]" class="form-input form-textarea" rows="5" placeholder="How can we help you?" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg">Send Message</button>
+        {%- endform -%}
+      </div>
+
+      <div class="contact-page__info">
+        <div class="contact-page__info-card">
+          <h3 class="contact-page__info-title">Get In Touch</h3>
+          <div class="contact-page__info-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:support@zinxusa.store">support@zinxusa.store</a>
+          </div>
+          <p class="contact-page__info-note">We typically respond within 24 hours.</p>
+        </div>
+
+        <div class="contact-page__info-card">
+          <h3 class="contact-page__info-title">FAQs</h3>
+          <p>Have a quick question? Check our <a href="/pages/faq">frequently asked questions</a> for instant answers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We'd Love to Hear From You"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Have a question, concern, or just want to say hello? Drop us a message and we'll get back to you shortly."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Page"
+    }
+  ]
+}
+{% endschema %}

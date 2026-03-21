@@ -1,0 +1,75 @@
+<section class="hero" id="hero">
+  <div class="hero__container container">
+    <div class="hero__content">
+      <p class="hero__eyebrow animate-fade-up">{{ section.settings.eyebrow }}</p>
+      <h1 class="hero__title animate-fade-up" style="animation-delay: 0.1s">{{ section.settings.heading }}</h1>
+      <p class="hero__subtitle animate-fade-up" style="animation-delay: 0.2s">{{ section.settings.subheading }}</p>
+      <div class="hero__actions animate-fade-up" style="animation-delay: 0.3s">
+        <a href="{{ section.settings.cta_link }}" class="btn btn--primary btn--lg">
+          {{ section.settings.cta_text }}
+          {% render 'icon', name: 'arrow-right', size: 20 %}
+        </a>
+      </div>
+    </div>
+    <div class="hero__image animate-fade-up" style="animation-delay: 0.2s">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          alt="{{ section.settings.image.alt | default: section.settings.heading }}"
+          class="hero__img"
+          width="800"
+          loading="eager"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "ZINX — Smart Home Solutions"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Declutter Your Kitchen in Seconds"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The magnetic rack that transforms wasted fridge space into organized storage. No drilling. No hassle. Just clean, simple living."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

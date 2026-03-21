@@ -1,0 +1,148 @@
+<section class="about-page" id="about-page">
+  <div class="about-page__container container">
+    <div class="about-page__hero">
+      <p class="about-page__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1 class="about-page__title">{{ section.settings.heading }}</h1>
+      <p class="about-page__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="about-page__content">
+      <div class="about-page__story">
+        <h2 class="about-page__section-title">{{ section.settings.story_title }}</h2>
+        <div class="about-page__text">
+          {{ section.settings.story_text }}
+        </div>
+      </div>
+
+      {%- if section.settings.image != blank -%}
+        <div class="about-page__image">
+          <img
+            src="{{ section.settings.image | image_url: width: 600 }}"
+            alt="{{ section.settings.image.alt | default: 'About ZINX' }}"
+            width="600"
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="about-page__values">
+      <h2 class="about-page__section-title" style="text-align: center">Our Values</h2>
+      <div class="about-page__values-grid">
+        {%- for block in section.blocks -%}
+          <div class="about-page__value" {{ block.shopify_attributes }}>
+            <div class="about-page__value-icon">
+              {% render 'icon', name: block.settings.icon, size: 28 %}
+            </div>
+            <h3 class="about-page__value-title">{{ block.settings.title }}</h3>
+            <p class="about-page__value-text">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Smart Products for Everyday Living"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "At ZINX, we believe small changes make a big difference. Our mission is to simplify your daily life through thoughtfully designed home solutions."
+    },
+    {
+      "type": "text",
+      "id": "story_title",
+      "label": "Story Title",
+      "default": "Our Story"
+    },
+    {
+      "type": "richtext",
+      "id": "story_text",
+      "label": "Story Text",
+      "default": "<p>ZINX was born out of a simple observation: most homes are filled with everyday inconveniences that nobody seems to solve properly.</p><p>We set out to create products that are functional, minimal, and affordable — products that solve real problems without the gimmicks. Our first product, the Magnetic Fridge Rack, embodies everything we stand for: simplicity, quality, and practical design.</p><p>Based in the USA, we're building a brand that puts utility first and style second. Because when something truly works well, it's already beautiful.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "About Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "zap", "label": "Simplicity" },
+            { "value": "shield", "label": "Quality" },
+            { "value": "heart", "label": "Care" },
+            { "value": "star", "label": "Excellence" }
+          ],
+          "default": "zap"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Page",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "icon": "zap",
+            "title": "Simplicity First",
+            "text": "Every product is designed to be intuitive. No manuals, no complexity — just solutions that work."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "shield",
+            "title": "Built to Last",
+            "text": "We use premium materials because we believe in products that stand the test of time."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "heart",
+            "title": "Customer Obsessed",
+            "text": "Your satisfaction is our foundation. We listen, we improve, and we deliver."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
