@@ -1,0 +1,152 @@
+<section class="comparison-table" style="padding: {{ section.settings.padding_y }}px 0; background: {{ section.settings.bg_color }};">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+        <h2 class="text-center" style="margin-bottom: 40px;">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="comparison-table__wrapper">
+      <table class="comparison-table__main">
+        <thead>
+          <tr>
+            <th class="comparison-table__col-feature">Features</th>
+            <th class="comparison-table__col-zinx">
+              <div class="comparison-table__zinx-badge">ZINX Rack</div>
+            </th>
+            <th class="comparison-table__col-others">Cheap Alternatives</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr>
+              <td class="comparison-table__cell-feature">{{ block.settings.feature_name }}</td>
+              <td class="comparison-table__cell-zinx">
+                <div class="comparison-table__check">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+              </td>
+              <td class="comparison-table__cell-others">
+                {%- if block.settings.competitor_has -%}
+                  <div class="comparison-table__check" style="color: var(--color-text-muted);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                {%- else -%}
+                  <div class="comparison-table__cross">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  </div>
+                {%- endif -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+.comparison-table__wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+}
+.comparison-table__main {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.comparison-table__main th, .comparison-table__main td {
+  padding: 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+.comparison-table__main th { border-bottom: 2px solid var(--color-border); padding-top: 32px; padding-bottom: 32px; }
+.comparison-table__main tbody tr:last-child td { border-bottom: none; }
+.comparison-table__col-feature { text-align: left; font-size: 1.1rem; font-weight: 700; width: 40%; color: var(--color-text-muted); }
+.comparison-table__col-zinx { width: 30%; background: rgba(0,0,0,0.02); }
+.comparison-table__col-others { width: 30%; color: var(--color-text-muted); font-size: 0.9rem; font-weight: 600; }
+
+.comparison-table__zinx-badge {
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.comparison-table__cell-feature {
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.comparison-table__cell-zinx {
+  background: rgba(0,0,0,0.02);
+}
+.comparison-table__check { color: var(--color-success); display: flex; align-items: center; justify-content: center; }
+.comparison-table__cross { color: #ef4444; display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 768px) {
+  .comparison-table__main th, .comparison-table__main td { padding: 16px 10px; }
+  .comparison-table__col-feature { font-size: 0.9rem; }
+  .comparison-table__cell-feature { font-size: 0.85rem; }
+  .comparison-table__zinx-badge { font-size: 0.8rem; padding: 6px 12px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose ZINX"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 40, "max": 140, "step": 10, "unit": "px",
+      "label": "Vertical Padding", "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Feature Row",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text", "id": "feature_name", "label": "Feature Name", "default": "Strong Magnetic Hold"
+        },
+        {
+          "type": "checkbox", "id": "competitor_has", "label": "Competitor Also Has This", "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        { "type": "row", "settings": { "feature_name": "No Drilling Required", "competitor_has": false } },
+        { "type": "row", "settings": { "feature_name": "Ultra-Strong Neodymium Magnets", "competitor_has": false } },
+        { "type": "row", "settings": { "feature_name": "Premium Matte Finish", "competitor_has": false } },
+        { "type": "row", "settings": { "feature_name": "Holds up to 15 lbs", "competitor_has": false } },
+        { "type": "row", "settings": { "feature_name": "Basic Attachments", "competitor_has": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

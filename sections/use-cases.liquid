@@ -1,0 +1,148 @@
+<section class="use-cases" style="padding: {{ section.settings.padding_y }}px 0; background: {{ section.settings.bg_color }};">
+  <div class="container overflow-hidden">
+    {%- if section.settings.heading != blank -%}
+      <div class="use-cases__header">
+        <h2>{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="use-cases__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="use-cases__scroll-wrapper">
+      <div class="use-cases__track">
+        {%- for block in section.blocks -%}
+          <div class="use-cases__card" {{ block.shopify_attributes }}>
+            <div class="use-cases__image">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <div class="use-cases__badge">{{ block.settings.title }}</div>
+            </div>
+            {%- if block.settings.text != blank -%}
+              <div class="use-cases__text">
+                <p>{{ block.settings.text }}</p>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.overflow-hidden { overflow: hidden; }
+.use-cases__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.use-cases__subheading {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  margin-top: 12px;
+}
+.use-cases__scroll-wrapper {
+  margin: 0 -24px;
+  padding: 0 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+}
+.use-cases__scroll-wrapper::-webkit-scrollbar { display: none; }
+.use-cases__track {
+  display: inline-flex;
+  gap: 24px;
+  padding-bottom: 24px; /* for shadow */
+}
+.use-cases__card {
+  width: 320px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+.use-cases__card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+.use-cases__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--color-bg-alt);
+}
+.use-cases__image img, .use-cases__image svg {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.use-cases__badge {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(4px);
+  color: var(--color-primary);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-weight: 700; font-size: 0.9rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.use-cases__text {
+  padding: 20px;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .use-cases__card { width: 280px; }
+  .use-cases__image { aspect-ratio: 1/1; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Use Cases Slider",
+  "settings": [
+    {
+      "type": "text", "id": "heading", "label": "Heading", "default": "One Rack. Endless Possibilities."
+    },
+    {
+      "type": "text", "id": "subheading", "label": "Subheading", "default": "Instantly add storage wherever there's metal."
+    },
+    {
+      "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff"
+    },
+    {
+      "type": "range", "id": "padding_y", "min": 40, "max": 140, "step": 10, "unit": "px", "label": "Vertical Padding", "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "case",
+      "name": "Use Case",
+      "limit": 8,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Badge Text", "default": "Kitchen" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Perfect for spices, oils, and paper towels directly on your fridge." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Use Cases Slider",
+      "blocks": [
+        { "type": "case", "settings": { "title": "Kitchen", "text": "Free up counter space by moving spices to the fridge." } },
+        { "type": "case", "settings": { "title": "Bathroom", "text": "Organize toiletries and hand towels on the washing machine." } },
+        { "type": "case", "settings": { "title": "Garage", "text": "Keep tools and shop towels ready on your metal workbench." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

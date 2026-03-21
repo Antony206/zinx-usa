@@ -61,6 +61,14 @@
     if (contShopBtn) contShopBtn.addEventListener('click', closeCartDrawer);
   }
 
+  const clearCartBtn = document.getElementById('btn-clear-cart');
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', () => {
+      fetch(window.Shopify.routes.root + 'cart/clear.js', { method: 'POST' })
+        .then(() => updateCartDrawer());
+    });
+  }
+
   // Intercept Add to Cart forms
   const atcForms = document.querySelectorAll('form[action="/cart/add"]');
   atcForms.forEach(form => {
@@ -110,6 +118,7 @@
     const emptyState = document.getElementById('cart-drawer-empty');
     const footer = document.getElementById('cart-drawer-footer');
     const totalEl = document.getElementById('cart-drawer-total');
+    const clearBtnWrapper = document.getElementById('cart-drawer-clear');
     
     if (!itemsContainer) return;
 
@@ -117,12 +126,14 @@
       itemsContainer.innerHTML = '';
       emptyState.style.display = 'block';
       footer.style.display = 'none';
+      if (clearBtnWrapper) clearBtnWrapper.style.display = 'none';
       updateShippingProgress(0);
       return;
     }
 
     emptyState.style.display = 'none';
     footer.style.display = 'block';
+    if (clearBtnWrapper) clearBtnWrapper.style.display = 'block';
     
     let itemsHtml = '';
     cart.items.forEach(item => {

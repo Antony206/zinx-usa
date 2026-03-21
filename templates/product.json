@@ -1,9 +1,46 @@
 {
   "sections": {
     "main": {
-      "type": "product-main",
-      "settings": {}
+      "type": "product-main"
+    },
+    "trust_bar": {
+      "type": "trust-bar"
+    },
+    "before_after": {
+      "type": "before-after"
+    },
+    "feature_sync_v": {
+      "type": "feature-sync-vertical"
+    },
+    "use_cases": {
+      "type": "use-cases"
+    },
+    "comparison": {
+      "type": "comparison-table"
+    },
+    "video": {
+      "type": "video"
+    },
+    "social_proof": {
+      "type": "testimonials"
+    },
+    "countdown": {
+      "type": "countdown"
+    },
+    "faq": {
+      "type": "page-faq"
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "trust_bar",
+    "before_after",
+    "feature_sync_v",
+    "use_cases",
+    "comparison",
+    "video",
+    "social_proof",
+    "countdown",
+    "faq"
+  ]
 }

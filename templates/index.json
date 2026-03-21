@@ -1,41 +1,62 @@
 {
   "sections": {
     "hero": {
-      "type": "hero",
-      "settings": {}
+      "type": "hero"
     },
-    "problem": {
-      "type": "problem",
-      "settings": {}
+    "trust_bar": {
+      "type": "trust-bar"
     },
-    "product-showcase": {
+    "product_highlight": {
       "type": "product-showcase",
-      "settings": {}
+      "settings": {
+        "heading": "The Magnetic Rack That Changes Everything",
+        "subheading": "Free up counter space in seconds. No drilling required."
+      }
     },
-    "how-it-works": {
-      "type": "how-it-works",
-      "settings": {}
+    "before_after": {
+      "type": "before-after"
     },
-    "testimonials": {
-      "type": "testimonials",
-      "settings": {}
+    "how_it_works": {
+      "type": "how-it-works"
+    },
+    "feature_sync_v": {
+      "type": "feature-sync-vertical"
+    },
+    "feature_sync_h": {
+      "type": "feature-sync-horizontal"
+    },
+    "use_cases": {
+      "type": "use-cases"
+    },
+    "comparison": {
+      "type": "comparison-table"
+    },
+    "social_proof": {
+      "type": "testimonials"
     },
     "video": {
-      "type": "video",
-      "settings": {}
+      "type": "video"
     },
-    "cta-banner": {
-      "type": "cta-banner",
-      "settings": {}
+    "countdown": {
+      "type": "countdown"
+    },
+    "faq": {
+      "type": "page-faq"
     }
   },
   "order": [
     "hero",
-    "problem",
-    "product-showcase",
-    "how-it-works",
+    "trust_bar",
+    "product_highlight",
+    "before_after",
+    "how_it_works",
+    "feature_sync_v",
+    "feature_sync_h",
+    "use_cases",
+    "comparison",
+    "social_proof",
     "video",
-    "testimonials",
-    "cta-banner"
+    "countdown",
+    "faq"
   ]
 }

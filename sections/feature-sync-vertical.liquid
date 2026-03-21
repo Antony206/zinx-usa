@@ -1,0 +1,225 @@
+<section class="feature-sync-v" id="feature-sync-{{ section.id }}" style="padding: {{ section.settings.padding_y }}px 0; background: {{ section.settings.bg_color }};">
+  <div class="container feature-sync-v__container">
+    {%- if section.settings.heading != blank -%}
+      <div class="feature-sync-v__header">
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="feature-sync-v__grid">
+      <!-- Left: Accordion List -->
+      <div class="feature-sync-v__list">
+        {%- for block in section.blocks -%}
+          <div class="feature-sync-v__item {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <button class="feature-sync-v__btn" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+              <span class="feature-sync-v__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </span>
+              <span class="feature-sync-v__title">{{ block.settings.title }}</span>
+            </button>
+            <div class="feature-sync-v__content" style="{% if forloop.first %}display: block;{% else %}display: none;{% endif %}">
+              <p>{{ block.settings.text }}</p>
+              <!-- Mobile Image (shows only on small screens inside accordion) -->
+              <div class="feature-sync-v__mobile-media">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" loading="lazy">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Right: Sticky Media Panel -->
+      <div class="feature-sync-v__media-panel">
+        <div class="feature-sync-v__media-sticky">
+          {%- for block in section.blocks -%}
+            <div class="feature-sync-v__media-item {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.feature-sync-v__header { margin-bottom: 60px; text-align: left; }
+.feature-sync-v__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+.feature-sync-v__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.feature-sync-v__item {
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-lg);
+  transition: background 0.3s ease;
+}
+.feature-sync-v__item.is-active {
+  background: var(--color-bg-alt);
+}
+.feature-sync-v__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: left;
+}
+.feature-sync-v__icon {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1.5px solid var(--color-primary); flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.feature-sync-v__item.is-active .feature-sync-v__icon { transform: rotate(45deg); }
+.feature-sync-v__content {
+  padding: 0 24px 24px 60px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+.feature-sync-v__mobile-media { display: none; margin-top: 20px; border-radius: var(--radius-md); overflow: hidden; }
+.feature-sync-v__mobile-media img { width: 100%; height: auto; display: block; }
+.feature-sync-v__media-sticky {
+  position: sticky;
+  top: 100px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-bg-alt);
+  aspect-ratio: 4/5;
+  box-shadow: var(--shadow-xl);
+}
+.feature-sync-v__media-item {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: scale(1.05);
+}
+.feature-sync-v__media-item.is-active {
+  opacity: 1; visibility: visible;
+  transform: scale(1);
+}
+.feature-sync-v__media-item img, .feature-sync-v__media-item svg {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .feature-sync-v__grid { grid-template-columns: 1fr; gap: 40px; }
+  .feature-sync-v__media-panel { display: none; }
+  .feature-sync-v__mobile-media { display: block; }
+  .feature-sync-v__item { background: var(--color-bg-alt); }
+  .feature-sync-v__content { padding-left: 24px; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.getElementById('feature-sync-{{ section.id }}');
+  if (!section) return;
+
+  const items = section.querySelectorAll('.feature-sync-v__item');
+  const mediaItems = section.querySelectorAll('.feature-sync-v__media-item');
+
+  items.forEach(item => {
+    const btn = item.querySelector('.feature-sync-v__btn');
+    btn.addEventListener('click', () => {
+      // If already active on mobile, maybe they want to close it, but on desktop it should stay active
+      const isActive = item.classList.contains('is-active');
+      const isDesktop = window.innerWidth > 900;
+      
+      if (isActive && isDesktop) return;
+
+      const index = item.getAttribute('data-index');
+
+      // Reset all
+      items.forEach(i => {
+        i.classList.remove('is-active');
+        i.querySelector('.feature-sync-v__content').style.display = 'none';
+        i.querySelector('.feature-sync-v__btn').setAttribute('aria-expanded', 'false');
+      });
+      mediaItems.forEach(m => m.classList.remove('is-active'));
+
+      // Activate current
+      if (!isActive || isDesktop) {
+        item.classList.add('is-active');
+        item.querySelector('.feature-sync-v__content').style.display = 'block';
+        item.querySelector('.feature-sync-v__btn').setAttribute('aria-expanded', 'true');
+        
+        const targetMedia = section.querySelector(`.feature-sync-v__media-item[data-index="${index}"]`);
+        if(targetMedia) targetMedia.classList.add('is-active');
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Feature Sync (Vertical)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Design Details"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 40, "max": 140, "step": 10, "unit": "px",
+      "label": "Vertical Padding", "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text", "id": "title", "label": "Title"
+        },
+        {
+          "type": "textarea", "id": "text", "label": "Description"
+        },
+        {
+          "type": "image_picker", "id": "image", "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Sync (Vertical)",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Camera Control", "text": "Perfect precision right at your fingertips." } },
+        { "type": "feature", "settings": { "title": "Action Button", "text": "A fast track to your favorite feature." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,141 @@
+<section class="trust-bar" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }}; border-top: 1px solid {{ section.settings.border_color }}; border-bottom: 1px solid {{ section.settings.border_color }};">
+  <div class="container">
+    <div class="trust-bar__grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-bar__item" {{ block.shopify_attributes }}>
+          <div class="trust-bar__icon">
+            {%- if block.settings.icon_name == 'star' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            {%- elsif block.settings.icon_name == 'truck' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            {%- elsif block.settings.icon_name == 'shield' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            {%- elsif block.settings.icon_name == 'refresh' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+            {%- else -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+            {%- endif -%}
+          </div>
+          <div class="trust-bar__text">
+            <h4 class="trust-bar__title">{{ block.settings.title }}</h4>
+            {%- if block.settings.subtitle != blank -%}
+              <p class="trust-bar__subtitle">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+.trust-bar {
+  padding: 16px 0;
+}
+.trust-bar__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.trust-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: max-content;
+}
+.trust-bar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trust-bar__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+.trust-bar__subtitle {
+  font-size: 0.75rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .trust-bar__grid { gap: 16px; justify-content: flex-start; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .trust-bar__grid::-webkit-scrollbar { display: none; }
+  .trust-bar__item { min-width: 160px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#e5e7eb"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_name",
+          "label": "Icon",
+          "options": [
+            { "value": "star", "label": "Star / Rating" },
+            { "value": "truck", "label": "Truck / Shipping" },
+            { "value": "shield", "label": "Shield / Secure" },
+            { "value": "refresh", "label": "Refresh / Returns" },
+            { "value": "smile", "label": "Smile / Guarantee" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle (Optional)",
+          "default": "On orders over $50"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon_name": "star", "title": "4.8/5 Rated", "subtitle": "10,000+ Customers" } },
+        { "type": "trust_item", "settings": { "icon_name": "truck", "title": "Free Shipping", "subtitle": "Orders shipped in 24h" } },
+        { "type": "trust_item", "settings": { "icon_name": "refresh", "title": "Easy Returns", "subtitle": "30-day guarantee" } },
+        { "type": "trust_item", "settings": { "icon_name": "shield", "title": "Secure Checkout", "subtitle": "256-bit encryption" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

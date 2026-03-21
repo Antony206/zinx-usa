@@ -15,6 +15,10 @@
       <div class="cart-drawer__shipping-bar"><div class="cart-drawer__shipping-progress" id="cart-shipping-progress"></div></div>
     </div>
 
+    <div class="cart-drawer__actions-top" style="text-align: right; margin-bottom: 12px; display: none;" id="cart-drawer-clear">
+      <button type="button" class="btn--clear-cart" id="btn-clear-cart" style="font-size: 0.8rem; color: var(--color-text-muted); text-decoration: underline;">Clear Cart</button>
+    </div>
+
     <form action="/cart" method="post" id="cart-drawer-form" class="cart-drawer__form">
       <div id="cart-drawer-items" class="cart-drawer__items">
         <!-- Cart items will be loaded via AJAX here -->
@@ -123,7 +127,8 @@
 }
 .cart-drawer-item__qtybtn { width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
 .cart-drawer-item__qtyinput { width: 32px; height: 100%; border: none; text-align: center; font-size: 0.85rem; font-weight: 600; padding: 0; border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); }
-.cart-drawer-item__remove { position: absolute; top: 0; right: 0; color: var(--color-text-muted); font-size: 0.8rem; text-decoration: underline; cursor: pointer; }
+.cart-drawer-item__remove { position: absolute; top: 0; right: 0; color: var(--color-text-muted); font-size: 0.8rem; text-decoration: underline; cursor: pointer; padding: 4px; }
+.cart-drawer-item__remove:hover { color: var(--color-primary); }
 
 .cart-drawer__empty { text-align: center; padding: 40px 0; color: var(--color-text-muted); }
 
