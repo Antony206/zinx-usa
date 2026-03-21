@@ -1,0 +1,236 @@
+<section class="lookbook-section" id="lookbook-{{ section.id }}" style="padding: {{ section.settings.padding_y }}px 0; background: {{ section.settings.bg_color }};">
+  <div class="container text-center">
+    {%- if section.settings.heading != blank -%}
+      <h2 style="margin-bottom: 40px;">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="lookbook__wrapper">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="{{ section.settings.image.alt | escape }}" class="lookbook__image">
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'lookbook__placeholder' }}
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        <div class="lookbook__hotspot" style="top: {{ block.settings.top }}%; left: {{ block.settings.left }}%;" {{ block.shopify_attributes }}>
+          <button class="lookbook__dot" aria-label="View product" title="Click to view product">
+            <span class="lookbook__dot-icon">+</span>
+            <span class="lookbook__dot-pulse"></span>
+          </button>
+          
+          {%- if block.settings.product != blank -%}
+            {%- assign product = block.settings.product -%}
+            <div class="lookbook__popup">
+              <a href="{{ product.url }}" class="lookbook__popup-link">
+                {%- if product.featured_image -%}
+                  <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title }}" class="lookbook__popup-img">
+                {%- endif -%}
+                <div class="lookbook__popup-info">
+                  <h4 class="lookbook__popup-title">{{ product.title }}</h4>
+                  <p class="lookbook__popup-price">{{ product.price | money }}</p>
+                </div>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+.lookbook__wrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.lookbook__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lookbook__placeholder {
+  width: 100%;
+  min-height: 500px;
+  background: var(--color-border);
+  color: var(--color-text-muted);
+}
+.lookbook__hotspot {
+  position: absolute;
+  z-index: 10;
+}
+.lookbook__dot {
+  width: 32px;
+  height: 32px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.lookbook__dot:hover {
+  transform: scale(1.1);
+}
+.lookbook__dot-icon {
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1;
+}
+.lookbook__dot-pulse {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  animation: hotspot-pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+@keyframes hotspot-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.lookbook__popup {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--color-white);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  width: max-content;
+  max-width: 250px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+.lookbook__hotspot:hover .lookbook__popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(15px);
+}
+.lookbook__popup::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--color-white);
+}
+.lookbook__popup-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--color-primary);
+  text-align: left;
+}
+.lookbook__popup-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-alt);
+}
+.lookbook__popup-title {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+.lookbook__popup-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+  .lookbook__dot { width: 28px; height: 28px; }
+  .lookbook__popup { max-width: 200px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Shoppable Lookbook",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop The Organized Kitchen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Vertical Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "range",
+          "id": "top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Position Top",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "left",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Position Left",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shoppable Lookbook",
+      "blocks": [
+        { "type": "hotspot" }
+      ]
+    }
+  ]
+}
+{% endschema %}
