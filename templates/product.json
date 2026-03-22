@@ -1,34 +1,97 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "product-main"
+      "type": "product-main",
+      "settings": {}
     },
     "trust_bar": {
-      "type": "trust-bar"
+      "type": "trust-bar",
+      "settings": {
+        "bg_color": "#f9fafb",
+        "text_color": "#111827",
+        "border_color": "#e5e7eb"
+      }
     },
     "before_after": {
-      "type": "before-after"
+      "type": "before-after",
+      "settings": {
+        "heading": "See the Difference in Seconds",
+        "bg_color": "#f4f4f5",
+        "padding_y": 80
+      }
     },
     "feature_sync_v": {
-      "type": "feature-sync-vertical"
+      "type": "feature-sync-vertical",
+      "settings": {
+        "heading": "Design Details",
+        "bg_color": "#ffffff",
+        "padding_y": 100
+      }
     },
     "use_cases": {
-      "type": "use-cases"
+      "type": "use-cases",
+      "settings": {
+        "heading": "One Rack. Endless Possibilities.",
+        "subheading": "Instantly add storage wherever there's metal.",
+        "bg_color": "#ffffff",
+        "padding_y": 80
+      }
     },
     "comparison": {
-      "type": "comparison-table"
+      "type": "comparison-table",
+      "settings": {
+        "heading": "Why Choose ZINX",
+        "bg_color": "#ffffff",
+        "padding_y": 80
+      }
     },
     "video": {
-      "type": "video"
+      "type": "video",
+      "settings": {
+        "eyebrow": "SEE IT IN ACTION",
+        "heading": "Watch How The Magnetic Rack Works",
+        "video_url": "",
+        "html5_video": "shopify://files/videos/Talking Woman Explanation.mp4",
+        "autoplay": true,
+        "mute": true,
+        "loop": true
+      }
     },
     "social_proof": {
-      "type": "testimonials"
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "WHAT CUSTOMERS SAY",
+        "heading": "Loved by Thousands"
+      }
     },
     "countdown": {
-      "type": "countdown"
+      "type": "countdown",
+      "settings": {
+        "heading": "Flash Sale Ends Soon",
+        "end_date": "",
+        "bg_color": "#2563eb",
+        "text_color": "#ffffff",
+        "padding_y": 80,
+        "button_label": "Shop Now",
+        "button_link": ""
+      }
     },
     "faq": {
-      "type": "page-faq"
+      "type": "page-faq",
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Frequently Asked Questions",
+        "subtitle": "Everything you need to know about our products, shipping, and returns."
+      }
     }
   },
   "order": [
