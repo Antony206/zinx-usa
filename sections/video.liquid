@@ -26,7 +26,13 @@
           playsinline
           {% if section.settings.cover_image != blank %}poster="{{ section.settings.cover_image | image_url: width: 1200 }}"{% endif %}
         >
-          <source src="{{ section.settings.html5_video }}" type="video/mp4">
+          {%- if section.settings.html5_video.sources -%}
+            {%- for source in section.settings.html5_video.sources -%}
+              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+            {%- endfor -%}
+          {%- else -%}
+            <source src="{{ section.settings.html5_video }}" type="video/mp4">
+          {%- endif -%}
           Your browser does not support the video tag.
         </video>
       {%- else -%}
@@ -67,10 +73,10 @@
       "accept": ["youtube", "vimeo"]
     },
     {
-      "type": "text",
+      "type": "video",
       "id": "html5_video",
-      "label": "MP4 Video URL",
-      "info": "Upload an MP4 to Shopify Files and paste the URL here. Overrides YouTube/Vimeo if both are provided."
+      "label": "Shopify-hosted video",
+      "info": "Select a video directly from your Shopify files. Overrides YouTube/Vimeo if both are provided."
     },
     {
       "type": "image_picker",
