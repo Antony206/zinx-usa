@@ -6,11 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>
-    {%- if page_title -%}
-      {{ page_title }} — {{ shop.name }}
-    {%- else -%}
-      {{ shop.name }}
-    {%- endif -%}
+    {{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}
   </title>
 
   {%- if page_description -%}
