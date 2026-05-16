@@ -12,8 +12,9 @@
     "main": {
       "type": "main-landing",
       "settings": {
+        "image": "shopify://shop_images/2.png",
         "title": "COMING SOON",
-        "text": "<p>The ultimate magnetic rack for your setup is launching soon. Subscribe to get notified the minute we go live.<\/p>",
+        "text": "<p>The ultimate magnetic rack for your setup is launching soon. Subscribe to get notified the minute we go live.</p>",
         "button_label": "Subscribe"
       }
     }
