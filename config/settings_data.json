@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#0A0A0A",
@@ -9,7 +18,29 @@
     "color_success": "#10B981",
     "announcement_enabled": true,
     "announcement_text": "🚚 Free Shipping on Orders Over $50 — Shop Now!",
-    "sections": {},
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/Transperant.png",
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "bg_color": "#f5f5f7",
+          "text_color": "#1d1d1f",
+          "show_newsletter": true,
+          "newsletter_title": "Join the Zinx family",
+          "newsletter_text": "Get 10% off your first order."
+        }
+      }
+    },
     "content_for_index": []
   }
 }
