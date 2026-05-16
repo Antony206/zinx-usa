@@ -1,267 +1,64 @@
-<footer class="mega-footer" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
-  <div class="mega-footer__container container">
-    
-    <!-- Optional Top Branding/Newsletter -->
-    {%- if section.settings.show_newsletter -%}
-    <div class="mega-footer__top">
-      <div class="mega-footer__top-text">
-        <h4 class="mega-footer__heading">{{ section.settings.newsletter_title }}</h4>
-        <p class="mega-footer__subtext">{{ section.settings.newsletter_text }}</p>
+<footer class="minimal-footer">
+  <div class="minimal-footer__container container">
+    <div class="minimal-footer__content">
+      <p class="minimal-footer__copyright">&copy; {{ 'now' | date: "%Y" }} Zinx USA. All rights reserved.</p>
+      <div class="minimal-footer__links">
+        <a href="/policies/privacy-policy">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a href="/policies/terms-of-service">Terms of Use</a>
+        <span class="divider">|</span>
+        <a href="/policies/refund-policy">Sales Policy</a>
       </div>
-      <form class="mega-footer__form">
-        <input type="email" placeholder="Email address" class="mega-footer__input" required>
-        <button type="submit" class="btn btn--primary mega-footer__btn">Subscribe</button>
-      </form>
-    </div>
-    {%- endif -%}
-
-    <!-- Main Navigation Grid -->
-    <div class="mega-footer__grid">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'link_list' -%}
-            <div class="mega-footer__column" {{ block.shopify_attributes }}>
-              <h4 class="mega-footer__col-title">
-                {{ block.settings.title }}
-                <span class="mega-footer__col-toggle">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </span>
-              </h4>
-              {%- if block.settings.menu != blank -%}
-                <ul class="mega-footer__menu">
-                  {%- for link in block.settings.menu.links -%}
-                    <li><a href="{{ link.url }}" class="mega-footer__link">{{ link.title }}</a></li>
-                  {%- endfor -%}
-                </ul>
-              {%- else -%}
-                <ul class="mega-footer__menu">
-                  <li><a href="#" class="mega-footer__link">Example Link</a></li>
-                  <li><a href="#" class="mega-footer__link">Another Link</a></li>
-                  <li><a href="#" class="mega-footer__link">Store Policy</a></li>
-                </ul>
-              {%- endif -%}
-            </div>
-          {%- when 'text' -%}
-            <div class="mega-footer__column mega-footer__column--text" {{ block.shopify_attributes }}>
-              <h4 class="mega-footer__col-title">{{ block.settings.title }}</h4>
-              <div class="mega-footer__content">{{ block.settings.text }}</div>
-              {%- if block.settings.show_social -%}
-                <div class="mega-footer__social">
-                  {% render 'icon' with 'instagram' %}
-                  {% render 'icon' with 'tiktok' %}
-                  {% render 'icon' with 'facebook' %}
-                </div>
-              {%- endif -%}
-            </div>
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
-
-    <!-- Bottom Bar -->
-    <div class="mega-footer__bottom">
-      <div class="mega-footer__copyright">
-        &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
-        <span class="mega-footer__legals">
-          <a href="/policies/privacy-policy">Privacy Policy</a> | <a href="/policies/terms-of-service">Terms of Use</a> | <a href="/policies/refund-policy">Sales Policy</a>
-        </span>
-      </div>
-      <div class="mega-footer__payment">
-        <!-- Add standard shopify payment icons if available -->
-        Payment methods accepted here.
-      </div>
+      <p class="minimal-footer__payment">Payment methods accepted here.</p>
     </div>
   </div>
 </footer>
 
-<style>
-.mega-footer {
-  padding: 60px 0 20px;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  font-size: 0.8rem;
-}
-.mega-footer__container { max-width: 1200px; }
-
-/* Top Newsletter */
-.mega-footer__top {
-  display: flex; justify-content: space-between; align-items: center;
-  padding-bottom: 40px; margin-bottom: 40px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  flex-wrap: wrap; gap: 24px;
-}
-.mega-footer__heading { font-size: 1.2rem; font-weight: 600; margin-bottom: 4px; }
-.mega-footer__subtext { color: rgba(0,0,0,0.6); }
-.mega-footer__form { display: flex; gap: 8px; width: 100%; max-width: 400px; }
-.mega-footer__input { flex: 1; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-sm); font-size: 0.9rem; }
-
-/* Desktop Grid (Apple Style 5-6 columns) */
-.mega-footer__grid {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 24px;
-  justify-content: space-between;
-  margin-bottom: 40px;
-}
-.mega-footer__column { flex: 1; min-width: 140px; }
-.mega-footer__col-title {
-  font-size: 0.85rem; font-weight: 600; color: inherit;
-  margin-bottom: 16px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.mega-footer__col-toggle { display: none; } /* Hidden on desktop */
-.mega-footer__menu { list-style: none; padding: 0; margin: 0; }
-.mega-footer__menu li { margin-bottom: 12px; }
-.mega-footer__link { color: rgba(0,0,0,0.6); text-decoration: none; transition: color 0.2s; }
-.mega-footer__link:hover { color: rgba(0,0,0,1); text-decoration: underline; }
-.mega-footer__content { color: rgba(0,0,0,0.6); line-height: 1.5; margin-bottom: 16px; }
-.mega-footer__social { display: flex; gap: 12px; color: rgba(0,0,0,0.8); }
-
-/* Bottom Bar */
-.mega-footer__bottom {
-  display: flex; justify-content: space-between; align-items: center;
-  padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);
-  color: rgba(0,0,0,0.5); flex-wrap: wrap; gap: 16px;
-}
-.mega-footer__legals { margin-left: 16px; }
-.mega-footer__legals a { color: inherit; text-decoration: none; margin: 0 4px; }
-.mega-footer__legals a:hover { color: rgba(0,0,0,0.8); text-decoration: underline; }
-
-/* Mobile Accordion */
-@media (max-width: 768px) {
-  .mega-footer__grid { flex-direction: column; gap: 0; border-top: 1px solid rgba(0,0,0,0.1); }
-  .mega-footer__column { border-bottom: 1px solid rgba(0,0,0,0.1); }
-  .mega-footer__col-title { 
-    margin: 0; padding: 16px 0; cursor: pointer; user-select: none;
+{%- style -%}
+  .minimal-footer {
+    padding: 40px 0;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.8;
   }
-  .mega-footer__col-toggle { display: block; transition: transform 0.3s ease; }
-  .mega-footer__menu { 
-    display: none; padding-bottom: 16px; 
+  .minimal-footer__container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
-  .mega-footer__column.is-open .mega-footer__col-toggle { transform: rotate(180deg); }
-  
-  .mega-footer__bottom { flex-direction: column; text-align: center; }
-  .mega-footer__legals { display: block; margin: 8px 0 0 0; }
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.innerWidth <= 768) {
-    const columns = document.querySelectorAll('.mega-footer__column');
-    columns.forEach(col => {
-      const title = col.querySelector('.mega-footer__col-title');
-      const menu = col.querySelector('.mega-footer__menu');
-      if (title && menu) {
-        title.addEventListener('click', () => {
-          const isOpen = col.classList.contains('is-open');
-          
-          // Close all
-          columns.forEach(c => {
-            c.classList.remove('is-open');
-            const m = c.querySelector('.mega-footer__menu');
-            if(m) m.style.display = 'none';
-          });
-          
-          // Open clicked
-          if (!isOpen) {
-            col.classList.add('is-open');
-            menu.style.display = 'block';
-          }
-        });
-      }
-    });
+  .minimal-footer__copyright {
+    margin-bottom: 8px;
   }
-});
-</script>
+  .minimal-footer__links {
+    margin-bottom: 8px;
+  }
+  .minimal-footer__links a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .minimal-footer__links a:hover {
+    color: #111;
+  }
+  .divider {
+    margin: 0 8px;
+    color: #d1d5db;
+  }
+  .minimal-footer__payment {
+    font-size: 0.8rem;
+  }
+{%- endstyle -%}
 
 {% schema %}
 {
-  "name": "Mega Footer (Apple Style)",
-  "settings": [
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#f5f5f7"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#1d1d1f"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_newsletter",
-      "label": "Show Newsletter Signup",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "newsletter_title",
-      "label": "Newsletter Heading",
-      "default": "Join the Zinx family"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_text",
-      "label": "Newsletter Subtext",
-      "default": "Get 10% off your first order."
-    }
-  ],
-  "blocks": [
-    {
-      "type": "link_list",
-      "name": "Menu Column",
-      "limit": 5,
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "Quick Links"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menu"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "Text & Social",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "About ZINX"
-        },
-        {
-          "type": "richtext",
-          "id": "text",
-          "label": "Text",
-          "default": "<p>Smart home solutions designed to declutter your space.</p>"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_social",
-          "label": "Show Social Icons",
-          "default": true
-        }
-      ]
-    }
-  ],
+  "name": "Minimal Footer",
+  "settings": [],
   "presets": [
     {
-      "name": "Mega Footer (Apple Style)",
-      "blocks": [
-        { "type": "link_list", "settings": { "title": "Shop and Learn" } },
-        { "type": "link_list", "settings": { "title": "Support" } },
-        { "type": "link_list", "settings": { "title": "Company" } },
-        { "type": "text", "settings": { "title": "ZINX USA" } }
-      ]
+      "name": "Minimal Footer"
     }
   ]
 }
