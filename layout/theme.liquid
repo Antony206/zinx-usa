@@ -23,7 +23,6 @@
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {%- endif -%}
 
-  {%- comment -%} Google Fonts — Inter {%- endcomment -%}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -47,7 +46,9 @@
 <body>
   <a class="skip-to-content" href="#main-content">Skip to content</a>
 
-  {%- section 'announcement-bar' -%}
+  {%- if template != 'index' -%}
+    {%- section 'announcement-bar' -%}
+  {%- endif -%}
   {%- section 'header' -%}
 
   <main id="main-content" role="main">
