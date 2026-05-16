@@ -1,62 +1,15 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero"
-    },
-    "trust_bar": {
-      "type": "trust-bar"
-    },
-    "product_highlight": {
-      "type": "product-showcase",
+    "main": {
+      "type": "main-landing",
       "settings": {
-        "heading": "The Magnetic Rack That Changes Everything",
-        "subheading": "Free up counter space in seconds. No drilling required."
+        "title": "COMING SOON",
+        "text": "<p>The ultimate magnetic rack for your setup is launching soon. Subscribe to get notified the minute we go live.<\/p>",
+        "button_label": "Subscribe"
       }
-    },
-    "before_after": {
-      "type": "before-after"
-    },
-    "how_it_works": {
-      "type": "how-it-works"
-    },
-    "feature_sync_v": {
-      "type": "feature-sync-vertical"
-    },
-    "feature_sync_h": {
-      "type": "feature-sync-horizontal"
-    },
-    "use_cases": {
-      "type": "use-cases"
-    },
-    "comparison": {
-      "type": "comparison-table"
-    },
-    "social_proof": {
-      "type": "testimonials"
-    },
-    "video": {
-      "type": "video"
-    },
-    "countdown": {
-      "type": "countdown"
-    },
-    "faq": {
-      "type": "page-faq"
     }
   },
   "order": [
-    "hero",
-    "trust_bar",
-    "product_highlight",
-    "before_after",
-    "how_it_works",
-    "feature_sync_v",
-    "feature_sync_h",
-    "use_cases",
-    "comparison",
-    "social_proof",
-    "video",
-    "countdown",
-    "faq"
+    "main"
   ]
 }

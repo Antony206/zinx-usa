@@ -1,0 +1,190 @@
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
+
+  .landing-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10vh;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .landing-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .landing-hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 100%);
+    z-index: 2;
+  }
+
+  .landing-hero__content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 600px;
+    padding: 0 20px;
+    color: #000;
+  }
+
+  .landing-hero__title {
+    font-family: 'Syncopate', sans-serif;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+    line-height: 1.1;
+  }
+
+  .landing-hero__text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    color: #333;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landing-hero__form-wrapper {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .landing-hero__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .landing-hero__input {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(230, 230, 230, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .landing-hero__input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #000;
+  }
+
+  .landing-hero__btn {
+    background: #000;
+    color: #fff;
+    padding: 18px 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .landing-hero__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  @media (max-width: 768px) {
+    .landing-hero__title {
+      font-size: 2.5rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="landing-hero">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'landing-hero__bg', loading: 'eager' }}
+  {%- else -%}
+    <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=2000" alt="Desk setup" class="landing-hero__bg">
+  {%- endif -%}
+  <div class="landing-hero__overlay"></div>
+
+  <div class="landing-hero__content animate-fade-up">
+    <h1 class="landing-hero__title">{{ section.settings.title }}</h1>
+    <div class="landing-hero__text">{{ section.settings.text }}</div>
+    
+    <div class="landing-hero__form-wrapper">
+      {%- form 'customer', class: 'landing-hero__form' -%}
+        <input type="hidden" name="contact[tags]" value="prospect, landing page">
+        <input 
+          type="email" 
+          name="contact[email]" 
+          placeholder="{{ 'newsletter.label' | t | default: 'Email address' }}" 
+          class="landing-hero__input"
+          required
+        >
+        <button type="submit" class="landing-hero__btn">
+          {{ section.settings.button_label }}
+        </button>
+        
+        {%- if form.posted_successfully? -%}
+          <p class="form-success" style="margin-top: 15px; font-weight: 500;">Thanks for subscribing! We'll be in touch soon.</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image (Desk Setup)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "COMING SOON"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Subtext",
+      "default": "<p>The ultimate magnetic rack for your setup is launching soon. Subscribe to get notified the minute we go live.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Hero"
+    }
+  ]
+}
+{% endschema %}

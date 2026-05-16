@@ -1,33 +1,113 @@
-<section class="faq-page" id="faq-page">
-  <div class="faq-page__container container">
+<section class="faq-page">
+  <div class="faq-page__container container--narrow">
     <div class="faq-page__header">
-      <p class="faq-page__eyebrow">{{ section.settings.eyebrow }}</p>
       <h1 class="faq-page__title">{{ section.settings.heading }}</h1>
       <p class="faq-page__subtitle">{{ section.settings.subtitle }}</p>
     </div>
 
     <div class="faq-page__list">
       {%- for block in section.blocks -%}
-        <div class="faq-page__item accordion" {{ block.shopify_attributes }}>
-          <button class="faq-page__question accordion__trigger" aria-expanded="false" id="faq-trigger-{{ forloop.index }}">
-            <span>{{ block.settings.question }}</span>
-            <span class="accordion__icon">{% render 'icon', name: 'chevron-down', size: 20 %}</span>
-          </button>
-          <div class="faq-page__answer accordion__content" id="faq-content-{{ forloop.index }}">
-            <div class="faq-page__answer-inner">
+        <div class="faq-item" {{ block.shopify_attributes }}>
+          <details class="faq-details">
+            <summary class="faq-summary">
+              {{ block.settings.question }}
+              <span class="faq-icon"></span>
+            </summary>
+            <div class="faq-content">
               {{ block.settings.answer }}
             </div>
-          </div>
+          </details>
         </div>
       {%- endfor -%}
     </div>
 
-    <div class="faq-page__cta">
+    <div class="faq-page__footer">
       <p>Still have questions?</p>
-      <a href="/pages/contact" class="btn btn--primary">Contact Us</a>
+      <a href="/pages/contact" class="link-minimal">Contact Us</a>
     </div>
   </div>
 </section>
+
+{%- style -%}
+  .container--narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+  .faq-page__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .faq-page__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .faq-page__subtitle {
+    font-size: 1.1rem;
+    color: #666;
+  }
+  .faq-item {
+    border-bottom: 1px solid #eee;
+  }
+  .faq-details {
+    padding: 24px 0;
+  }
+  .faq-summary {
+    list-style: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .faq-icon::before, .faq-icon::after {
+    content: '';
+    position: absolute;
+    background: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .faq-icon::before { width: 12px; height: 2px; }
+  .faq-icon::after { width: 2px; height: 12px; transition: opacity 0.3s ease; }
+  
+  .faq-details[open] .faq-icon::after {
+    opacity: 0;
+  }
+  
+  .faq-content {
+    padding-top: 16px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+  }
+  .faq-page__footer {
+    margin-top: 80px;
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+  }
+  .link-minimal {
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+{%- endstyle -%}
+
 
 {% schema %}
 {
